@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>Jboard2</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>    
+  </welcome-file-list>
+  
+  <!--  모델2 보안 설정 -->
+  <security-constraint>
+  	<display-name>Prohibit Model1</display-name>
+  	<web-resource-collection>
+  		<web-resource-name>secure page</web-resource-name>
+  		<url-pattern>*.jsp</url-pattern>
+  	</web-resource-collection>
+  	<auth-constraint>
+  		<role-name>nobody</role-name>
+  	</auth-constraint>
+  </security-constraint>
+  
+  <!--  인덱스페이지 예외 -->
+  <security-constraint>
+  	<web-resource-collection>
+  		<web-resource-name>free pages</web-resource-name>
+  		<url-pattern>/index.jsp</url-pattern>
+  	</web-resource-collection>
+  </security-constraint>
+  
+  
+  <!--  필터 설정 -->
+  <filter>
+  	<filter-name>AutoLoginFilter</filter-name>
+  	<filter-class>kr.co.jboard2.filter.AutoLoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>AutoLoginFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <filter>
+  	<filter-name>LoginCheckFilter</filter-name>
+  	<filter-class>kr.co.jboard2.filter.LoginCheckFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>LoginCheckFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <filter>
+  	<filter-name>SetCharacterEncodingFilter</filter-name>
+  	<filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+  	<init-param>
+  		<param-name>encoding</param-name>
+  		<param-value>UTF-8</param-value>
+  	</init-param>
+  </filter>
+  
+  <filter-mapping>
+  	<filter-name>SetCharacterEncodingFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+</web-app>
